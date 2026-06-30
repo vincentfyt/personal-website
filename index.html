@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuteng Feng</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #1a1a1a;
+    background: #fff;
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  [lang="zh"] { font-family: 'Inter', 'Noto Serif SC', -apple-system, sans-serif; }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 80px 24px 120px;
+  }
+
+  /* Header */
+  .header { margin-bottom: 40px; }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+
+  .lang-toggle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: #999;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    background: none;
+    padding: 4px 10px;
+    border-radius: 3px;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .lang-toggle:hover { color: #1a1a1a; border-color: #999; }
+
+  .header .links {
+    font-size: 13px;
+    color: #666;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  a { color: #1a1a1a; text-decoration: none; border-bottom: 1px solid #ccc; }
+  a:hover { border-color: #1a1a1a; }
+  .header .links a { color: #666; border-bottom: 1px solid #ddd; }
+  .header .links a:hover { color: #1a1a1a; border-color: #1a1a1a; }
+  .sep { margin: 0 6px; color: #ccc; }
+
+  .intro {
+    margin-bottom: 56px;
+    font-size: 15px;
+    color: #444;
+    line-height: 1.85;
+  }
+
+  /* Bilingual toggle */
+  .zh { display: none; }
+  body.is-zh .en { display: none; }
+  body.is-zh div.zh { display: block; }
+  body.is-zh span.zh { display: inline; }
+
+  /* Section */
+  section { margin-bottom: 56px; }
+
+  section > h2, .p2-section h2 {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #999;
+    margin-bottom: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Pillar 2 */
+  .p2-section { margin-bottom: 56px; }
+
+  .p2-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .p2-links {
+    font-size: 13px;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 28px;
+    color: #999;
+  }
+  .p2-links a { color: #666; border-bottom: 1px solid #ddd; }
+  .p2-links a:hover { color: #1a1a1a; border-color: #1a1a1a; }
+
+  /* Viz */
+  .viz-box {
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    padding: 28px 24px 20px;
+    background: #fafafa;
+    margin-bottom: 12px;
+  }
+
+  .viz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .viz-title {
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .viz-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.15s;
+  }
+  .viz-btn:hover { background: #333; }
+
+  .entity-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+
+  .entity-label {
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #888;
+    width: 28px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .entity-bar-wrap {
+    flex: 1;
+    height: 28px;
+    background: #eee;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .entity-range {
+    position: absolute;
+    height: 100%;
+    background: #ddd;
+    border-radius: 4px;
+    transition: background 0.4s;
+  }
+  .entity-range.optimized { background: #c8dbb4; }
+
+  .entity-marker {
+    position: absolute;
+    height: 100%;
+    width: 3px;
+    background: #1a1a1a;
+    border-radius: 2px;
+    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .entity-val {
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #aaa;
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+    transition: color 0.4s;
+  }
+  .entity-val.optimized { color: #555; }
+
+  .viz-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #eee;
+  }
+
+  .viz-total {
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #aaa;
+  }
+  .viz-total span { color: #1a1a1a; font-weight: 500; }
+
+  .viz-status {
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #bbb;
+    font-style: italic;
+  }
+  .viz-status.done { color: #7a9e5a; font-style: normal; }
+
+  .viz-caption {
+    font-size: 12px;
+    color: #bbb;
+    font-style: italic;
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.6;
+  }
+
+  /* Work items */
+  .work-item { margin-bottom: 28px; }
+
+  .work-item h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+
+  .work-item p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.75;
+  }
+
+  .work-item .stack {
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #999;
+    margin-top: 4px;
+  }
+
+  /* Background */
+  .bg-line {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 6px;
+  }
+  .bg-line .l { font-weight: 500; color: #1a1a1a; }
+  .bg-line .d {
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #999;
+    margin-left: 4px;
+  }
+
+  .bg-skills {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #777;
+    line-height: 1.8;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  hr { border: none; border-top: 1px solid #eee; margin: 56px 0; }
+
+  .footer {
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+    font-size: 13px;
+    color: #bbb;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .footer a { color: #999; border-bottom: 1px solid #ddd; }
+  .footer a:hover { color: #1a1a1a; border-color: #1a1a1a; }
+
+  @media (max-width: 500px) {
+    .page { padding: 48px 20px 80px; }
+    .header h1 { font-size: 24px; }
+    .viz-box { padding: 20px 16px 16px; }
+    .header-top { align-items: center; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <div class="header-top">
+      <h1>
+        <span class="en">Yuteng Feng</span>
+        <span class="zh">冯宇腾</span>
+      </h1>
+      <button class="lang-toggle" onclick="toggleLang()">
+        <span class="en">中文</span>
+        <span class="zh">EN</span>
+      </button>
+    </div>
+    <div class="links">
+      <a href="mailto:ytfeng@umich.edu">ytfeng@umich.edu</a>
+      <span class="sep">/</span>
+      <a href="https://github.com/vincentfyt">github</a>
+    </div>
+  </header>
+
+  <div class="intro">
+    <div class="en">
+      <p>I'm interested in the overlap between quantitative modeling, software engineering, and messy real-world rule systems — tax, legal, financial. I studied statistics and economics at the University of Michigan, then ended up in transfer pricing at PwC. Not because tax was the plan, but because it turned out to be a surprisingly rich source of hard optimization problems and ugly data that no one had bothered to automate.</p>
+      <p style="margin-top:12px">So I started building. Over the past three years I've shipped desktop tools for report QC, automated German tax authority filings, built bank-statement parsers for intercompany lending, drafted PE/VC transaction documents for Series A deals, and written a research paper that reframes a major international tax rule as an MILP. Most of this was done on my own initiative, outside of anything the firm asked for. The thread across all of it is the same: take a domain where people are still doing things manually, figure out the structure underneath, and write the code.</p>
+      <p style="margin-top:12px">I'm looking for work where the core job is solving hard problems with code and math — quantitative finance, legal tech, fintech infrastructure, asset management. The domain matters less than the problem.</p>
+    </div>
+    <div class="zh">
+      <p>密歇根大学经济学和应用统计出身，毕业后在普华永道上海做转让定价。当初不是冲着税来的——进来之后发现这行有大把的优化问题和烂数据没人管，就开始自己写工具。</p>
+      <p style="margin-top:12px">这三年陆续造了不少东西：报告质检的桌面工具、德国税务局的 CbCR 自动申报、银行对账单解析引擎，也帮人写过 Series A 的全套交易文件（增资、股转、股东协议），还发了篇把 Pillar 2 规则做成数学优化的论文。基本都是自己想做的，不是上面安排的活。说白了就一件事：看到哪块还在手动搞，就把它结构化，然后写代码。</p>
+      <p style="margin-top:12px">在看新方向——量化、法律科技、金融基础设施、资管都行。</p>
+    </div>
+  </div>
+
+  <!-- Pillar 2 -->
+  <div class="p2-section">
+    <h2>
+      <span class="en">Pillar 2 — income allocation as optimization</span>
+      <span class="zh">Pillar 2 — 收入分配本身就是个优化问题</span>
+    </h2>
+
+    <div class="p2-desc">
+      <div class="en">
+        Multinational tax planning usually treats each jurisdiction's income as a given. But transfer pricing rules define a range, not a point — and how you allocate within those ranges changes what you owe. That makes it an optimization problem. I wrote a framework that solves it.
+      </div>
+      <div class="zh">
+        做跨国税务的人一般把每个法域的收入当成定死的，但其实不是——转让定价给你的是一个区间，不是一个点。你在这些区间里怎么摆，直接影响最后交多少税。既然是区间，那就是个优化问题。我写了个框架来解它。
+      </div>
+    </div>
+
+    <div class="p2-links">
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5285353">paper (SSRN)</a>
+      <span class="sep">/</span>
+      <a href="https://www.vincentfyt.com">live calculator</a>
+      <span class="sep">/</span>
+      <a href="https://github.com/vincentfyt/OECD-Pillar-2-Optimization-model">code</a>
+    </div>
+
+    <div class="viz-box">
+      <div class="viz-header">
+        <div class="viz-title">
+          <span class="en">Allocation within arm's-length ranges</span>
+          <span class="zh">在合规区间里找最优分配</span>
+        </div>
+        <button class="viz-btn" id="optimizeBtn" onclick="runOptimize()">Optimize</button>
+      </div>
+      <div id="vizEntities"></div>
+      <div class="viz-footer">
+        <div class="viz-total">total tax: <span id="totalTax">—</span></div>
+        <div class="viz-status" id="vizStatus">unoptimized</div>
+      </div>
+    </div>
+    <div class="viz-caption">
+      <span class="en">Each bar is a jurisdiction's allowable range. Click optimize to see the difference.</span>
+      <span class="zh">每个条是一个法域的合规区间。点 Optimize 跑一下看差多少。</span>
+    </div>
+  </div>
+
+  <!-- Other work -->
+  <section>
+    <h2>
+      <span class="en">Other things I've built</span>
+      <span class="zh">还做过这些</span>
+    </h2>
+
+    <div class="work-item">
+      <h3>
+        <span class="en">German CbCR automation</span>
+        <span class="zh">德国 CbCR 自动申报</span>
+      </h3>
+      <p>
+        <span class="en">End-to-end pipeline for Country-by-Country Reporting to the German BZSt. Reconciles multi-entity, multi-currency financial data, generates XML Schema 2.0 compliant files, handles the ELMA5 → DIP portal migration, DocRefId formatting, Steuernummer validation. In production for live client filings.</span>
+        <span class="zh">给德国联邦税务局（BZSt）做的国别报告全流程自动化。多实体、多币种的财务数据勾稽，生成 XML Schema 2.0 的申报文件，ELMA5 到 DIP 的系统切换、DocRefId、税号校验这些坑全踩过。已经在客户实际申报里跑了。</span>
+      </p>
+      <div class="stack">Python · lxml · openpyxl</div>
+    </div>
+
+    <div class="work-item">
+      <h3>
+        <span class="en">TP Fact Checker</span>
+        <span class="zh">转让定价报告 AI 审核工具</span>
+      </h3>
+      <p>
+        <span class="en">Desktop app that uses LLMs to review transfer pricing reports — catches factual errors, number mismatches, and language issues. Also batch-rewrites outdated paragraphs in annual updates (200+ per run), preserving Word formatting.</span>
+        <span class="zh">接了大模型的桌面工具，查转让定价报告里的事实错误、数据对不上和语言问题。也能批量改写年度更新的过期段落，一次跑 200 多段，Word 格式不会乱。</span>
+      </p>
+      <div class="stack">Python · Flask · pywebview · LLM API</div>
+    </div>
+
+    <div class="work-item">
+      <h3>
+        <span class="en">Intercompany funding engine</span>
+        <span class="zh">融通资金表自动化引擎</span>
+      </h3>
+      <p>
+        <span class="en">Parses five bank-statement formats across three cash pools, computes related-party lending, occupied days, annualized interest. One-click output.</span>
+        <span class="zh">五种银行对账单格式自动解析，三个资金池的关联方借贷、占用天数、年化利息一把算完，点一下出表。</span>
+      </p>
+      <div class="stack">Python · Flask · pywebview · openpyxl</div>
+    </div>
+
+    <div class="work-item">
+      <h3>
+        <span class="en">PE/VC transaction documents</span>
+        <span class="zh">PE/VC 交易文件</span>
+      </h3>
+      <p>
+        <span class="en">Drafted full sets of Series A transaction agreements — capital increase, equity transfer, shareholders' agreement — with cross-referencing provisions, anti-dilution clauses, and OOXML tracked-changes markup for collaborative review. Comfortable working across the boundary between legal structure and financial modeling.</span>
+        <span class="zh">写过 Series A 全套文件——增资协议、股转协议、股东协议，反稀释、交叉引用都有，OOXML 修订标记走的协作审阅。</span>
+      </p>
+    </div>
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>Background</h2>
+    <div class="bg-line">
+      <span class="l">PwC Shanghai</span> — Transfer Pricing<span class="d">2023 –</span>
+    </div>
+    <div class="bg-line">
+      <span class="l">M.S. Applied Statistics</span>, University of Michigan<span class="d">2023</span>
+    </div>
+    <div class="bg-line">
+      <span class="l">B.S. Economics</span>, University of Michigan<span class="d">2021</span>
+    </div>
+    <div class="bg-skills">
+      Python · JavaScript · React · R · SQL · VBA · MILP · Bayesian statistics<br>
+      Mandarin (native) · English (fluent)
+    </div>
+  </section>
+
+  <div class="footer">
+    <a href="mailto:ytfeng@umich.edu">email</a>
+    <span class="sep">·</span>
+    <a href="https://github.com/vincentfyt">github</a>
+    <span class="sep">·</span>
+    <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5285353">ssrn</a>
+  </div>
+
+</div>
+
+<script>
+function toggleLang() {
+  document.body.classList.toggle('is-zh');
+}
+
+const jurisdictions = [
+  { code: 'DE', rate: 0.30, lo: 20, hi: 55, current: 48 },
+  { code: 'SG', rate: 0.17, lo: 10, hi: 40, current: 15 },
+  { code: 'IE', rate: 0.15, lo: 15, hi: 50, current: 22 },
+  { code: 'CN', rate: 0.25, lo: 25, hi: 60, current: 52 },
+  { code: 'US', rate: 0.21, lo: 18, hi: 48, current: 30 },
+  { code: 'JP', rate: 0.31, lo: 12, hi: 42, current: 35 },
+];
+
+const MAX = 70;
+let optimized = false;
+
+function calcTax(entities) {
+  return entities.reduce((s, e) => s + e.current * e.rate, 0);
+}
+
+function solveOptimal(entities) {
+  const sorted = entities.map((e, i) => ({ ...e, idx: i })).sort((a, b) => a.rate - b.rate);
+  const result = entities.map(e => ({ ...e, optimal: e.lo }));
+  const totalIncome = entities.reduce((s, e) => s + e.current, 0);
+  let remaining = totalIncome - entities.reduce((s, e) => s + e.lo, 0);
+
+  for (const s of sorted) {
+    const room = s.hi - s.lo;
+    const give = Math.min(room, remaining);
+    result[s.idx].optimal = s.lo + give;
+    remaining -= give;
+    if (remaining <= 0) break;
+  }
+  return result;
+}
+
+function render() {
+  const container = document.getElementById('vizEntities');
+  container.innerHTML = '';
+  jurisdictions.forEach((e, i) => {
+    const row = document.createElement('div');
+    row.className = 'entity-row';
+    row.innerHTML = `
+      <div class="entity-label">${e.code}</div>
+      <div class="entity-bar-wrap">
+        <div class="entity-range" id="range-${i}" style="left:${e.lo/MAX*100}%;width:${(e.hi-e.lo)/MAX*100}%"></div>
+        <div class="entity-marker" id="marker-${i}" style="left:${e.current/MAX*100}%"></div>
+      </div>
+      <div class="entity-val" id="val-${i}">${e.current}</div>`;
+    container.appendChild(row);
+  });
+  updateTotal();
+}
+
+function updateTotal() {
+  document.getElementById('totalTax').textContent = calcTax(jurisdictions).toFixed(1);
+}
+
+function runOptimize() {
+  if (optimized) {
+    jurisdictions.forEach(e => { e.current = e._original; });
+    optimized = false;
+    document.getElementById('optimizeBtn').textContent = 'Optimize';
+    document.getElementById('vizStatus').textContent = 'unoptimized';
+    document.getElementById('vizStatus').className = 'viz-status';
+    jurisdictions.forEach((e, i) => {
+      document.getElementById('marker-' + i).style.left = (e.current / MAX * 100) + '%';
+      document.getElementById('val-' + i).textContent = e.current;
+      document.getElementById('val-' + i).className = 'entity-val';
+      document.getElementById('range-' + i).className = 'entity-range';
+    });
+    updateTotal();
+    return;
+  }
+
+  jurisdictions.forEach(e => { e._original = e.current; });
+  const result = solveOptimal(jurisdictions);
+
+  result.forEach((e, i) => {
+    jurisdictions[i].current = e.optimal;
+    document.getElementById('marker-' + i).style.left = (e.optimal / MAX * 100) + '%';
+    document.getElementById('val-' + i).textContent = Math.round(e.optimal);
+    document.getElementById('val-' + i).className = 'entity-val optimized';
+    document.getElementById('range-' + i).className = 'entity-range optimized';
+  });
+
+  optimized = true;
+  document.getElementById('optimizeBtn').textContent = 'Reset';
+  updateTotal();
+  setTimeout(() => {
+    document.getElementById('vizStatus').textContent = 'optimized ✓';
+    document.getElementById('vizStatus').className = 'viz-status done';
+  }, 500);
+}
+
+render();
+</script>
+</body>
+</html>
