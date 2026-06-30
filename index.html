@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yuteng Feng</title>
+<title>Yuteng Feng | Portfolio</title>
+<meta name="description" content="Yuteng Feng's personal portfolio: asset management, fintech infrastructure, legal-tech, quantitative modeling, software tools, transfer pricing automation, and public notes.">
+<meta property="og:title" content="Yuteng Feng | Portfolio">
+<meta property="og:description" content="Personal portfolio covering asset management, fintech infrastructure, legal-tech, quantitative modeling, software tools, and tax optimization projects.">
+<meta property="og:type" content="website">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap');
 
@@ -321,19 +325,21 @@
       <a href="mailto:ytfeng@umich.edu">ytfeng@umich.edu</a>
       <span class="sep">/</span>
       <a href="https://github.com/vincentfyt">github</a>
+      <span class="sep">/</span>
+      <a href="https://b23.tv/rsWWnRr">bilibili</a>
     </div>
   </header>
 
   <div class="intro">
     <div class="en">
-      <p>I'm interested in the overlap between quantitative modeling, software engineering, and messy real-world rule systems — tax, legal, financial. I studied statistics and economics at the University of Michigan, then ended up in transfer pricing at PwC. Not because tax was the plan, but because it turned out to be a surprisingly rich source of hard optimization problems and ugly data that no one had bothered to automate.</p>
-      <p style="margin-top:12px">So I started building. Over the past three years I've shipped desktop tools for report QC, automated German tax authority filings, built bank-statement parsers for intercompany lending, drafted PE/VC transaction documents for Series A deals, and written a research paper that reframes a major international tax rule as an MILP. Most of this was done on my own initiative, outside of anything the firm asked for. The thread across all of it is the same: take a domain where people are still doing things manually, figure out the structure underneath, and write the code.</p>
-      <p style="margin-top:12px">I'm looking for work where the core job is solving hard problems with code and math — quantitative finance, legal tech, fintech infrastructure, asset management. The domain matters less than the problem.</p>
+      <p>I work across quantitative modeling, software engineering, and rule-heavy domains such as tax, legal processes, and finance. I studied Economics and Applied Statistics at the University of Michigan, and later worked in transfer pricing at PwC Shanghai. Much of my work has focused on turning manual, document-heavy workflows into tools that are easier to check, reproduce, and maintain.</p>
+      <p style="margin-top:12px">This site is a small portfolio of things I have built or written: report QC tools, German tax filing automation, bank-statement parsers for intercompany lending, PE/VC transaction documents, and a research paper that formulates part of the Pillar Two tax regime as an optimization problem. Some projects are formal work products; others are experiments, notes, or public-facing demos.</p>
+      <p style="margin-top:12px">I am interested in roles where code, quantitative reasoning, and domain structure matter — including asset management, fintech infrastructure, legal tech, and quantitative finance. I am also open to work involving LLM application debugging or evaluation, with some time to ramp up on the specific stack and task context.</p>
     </div>
     <div class="zh">
-      <p>密歇根大学经济学和应用统计出身，毕业后在普华永道上海做转让定价。当初不是冲着税来的——进来之后发现这行有大把的优化问题和烂数据没人管，就开始自己写工具。</p>
-      <p style="margin-top:12px">这三年陆续造了不少东西：报告质检的桌面工具、德国税务局的 CbCR 自动申报、银行对账单解析引擎，也帮人写过 Series A 的全套交易文件（增资、股转、股东协议），还发了篇把 Pillar 2 规则做成数学优化的论文。基本都是自己想做的，不是上面安排的活。说白了就一件事：看到哪块还在手动搞，就把它结构化，然后写代码。</p>
-      <p style="margin-top:12px">在看新方向——量化、法律科技、金融基础设施、资管都行。</p>
+      <p>密歇根大学经济学和应用统计出身，后来在普华永道上海做转让定价。比较关注量化建模、软件工程，以及税务、法律、金融这类规则密集型领域之间的交叉。</p>
+      <p style="margin-top:12px">这个页面先当个人作品集用：放我做过或写过的东西，包括报告质检工具、德国 CbCR 自动申报、银行对账单解析、PE/VC 交易文件，以及把 Pillar 2 税制写成优化问题的研究。以后一些 demo、笔记、视频主页也可以往这里放。</p>
+      <p style="margin-top:12px">现在主要看资管、金融基础设施、法律科技、量化相关方向。大模型应用调试、评估相关的工作也可以做，但需要一定时间熟悉具体业务场景和工程栈。</p>
     </div>
   </div>
 
@@ -346,7 +352,7 @@
 
     <div class="p2-desc">
       <div class="en">
-        Multinational tax planning usually treats each jurisdiction's income as a given. But transfer pricing rules define a range, not a point — and how you allocate within those ranges changes what you owe. That makes it an optimization problem. I wrote a framework that solves it.
+        Multinational tax planning often treats each jurisdiction's income as a fixed input. In practice, transfer pricing rules frequently define an acceptable range rather than a single point. Allocation within those ranges can affect the final tax outcome, so I modeled it as an optimization problem.
       </div>
       <div class="zh">
         做跨国税务的人一般把每个法域的收入当成定死的，但其实不是——转让定价给你的是一个区间，不是一个点。你在这些区间里怎么摆，直接影响最后交多少税。既然是区间，那就是个优化问题。我写了个框架来解它。
@@ -384,8 +390,8 @@
   <!-- Other work -->
   <section>
     <h2>
-      <span class="en">Other things I've built</span>
-      <span class="zh">还做过这些</span>
+      <span class="en">Selected work</span>
+      <span class="zh">作品 / 项目</span>
     </h2>
 
     <div class="work-item">
@@ -436,10 +442,45 @@
     </div>
   </section>
 
+
+  <section>
+    <h2>
+      <span class="en">Public notes and links</span>
+      <span class="zh">公开主页 / 笔记</span>
+    </h2>
+
+    <div class="work-item">
+      <h3>
+        <span class="en">Bilibili homepage</span>
+        <span class="zh">Bilibili 主页</span>
+      </h3>
+      <p>
+        <span class="en">A place for public videos, notes, and small pieces of work that do not fit neatly into a project page.</span>
+        <span class="zh">放一些视频、笔记和不太适合单独做项目页的东西。</span>
+      </p>
+      <div class="stack"><a href="https://b23.tv/rsWWnRr">bilibili</a></div>
+    </div>
+
+    <div class="work-item">
+      <h3>
+        <span class="en">Code and research</span>
+        <span class="zh">代码和研究</span>
+      </h3>
+      <p>
+        <span class="en">Selected repositories, research drafts, and small demos. This section can grow as the portfolio becomes less project-specific and more like a personal index.</span>
+        <span class="zh">代码仓库、研究草稿和一些小 demo。后续这个区域可以继续扩展成个人索引。</span>
+      </p>
+      <div class="stack"><a href="https://github.com/vincentfyt">github</a> · <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5285353">ssrn</a></div>
+    </div>
+  </section>
+
   <hr>
 
   <section>
-    <h2>Background</h2>
+    <h2>
+      <span class="en">Background</span>
+      <span class="zh">背景</span>
+    </h2>
     <div class="bg-line">
       <span class="l">PwC Shanghai</span> — Transfer Pricing<span class="d">2023 –</span>
     </div>
@@ -461,6 +502,8 @@
     <a href="https://github.com/vincentfyt">github</a>
     <span class="sep">·</span>
     <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5285353">ssrn</a>
+    <span class="sep">·</span>
+    <a href="https://b23.tv/rsWWnRr">bilibili</a>
   </div>
 
 </div>
